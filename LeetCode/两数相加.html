@@ -1,0 +1,64 @@
+<!--
+ * @Author: FeiZhouXing
+ * @Email: 2498265659@qq.com
+ * @Date: 2021-08-30 14:15:10
+ * @LastEditors: FeiZhouXing
+ * @LastEmail: 2498265659@qq.com
+ * @LastEditTime: 2021-08-31 09:55:13
+ * @Description: file content
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  function ListNode(val, next) {
+      this.val = (val===undefined ? 0 : val)
+      this.next = (next===undefined ? null : next)
+  }
+  let addTwoNumbers = function (l1, l2) {
+    let l3 = new ListNode();
+    let l4 = l3;
+    while (l1.next && l2.next) {
+        l3.val = l1.val + l2.val;
+        l3.next = new ListNode();
+        l3.val > 9 ? l1.next.val += 1 : null;
+        l3.val = l3.val%10;
+        l1 = l1.next;
+        l2 = l2.next;
+        l3 = l3.next;
+    }
+    l3.val = l1.val + l2.val;
+    l3.next = l1.next || l2.next;
+    while (l3.next) {
+        l3.val > 9 ? l3.next.val += 1 : null;
+        l3.val = l3.val%10;
+        l3 = l3.next;
+    }
+    l3.val > 9 ? l3.next = new ListNode(1): null;
+    l3.val = l3.val%10;
+    // console.log('-------------l4',l4)
+    // l3 = [];
+    // while(l4.next){
+    //     l3.push(l4.val)
+    //     l4 = l4.next
+    // }
+    // l4 = new ListNode(l4.val);
+    // let result = l4;
+    // l3.reverse().forEach(item=>{
+    //     l4.next = new ListNode(item)
+    //     l4 = l4.next;
+
+    // })
+    return l4;
+};
+addTwoNumbers(new ListNode(2,new ListNode(4,new ListNode(3))),new ListNode(5,new ListNode(6,new ListNode(4))))
+</script>

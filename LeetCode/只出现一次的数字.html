@@ -1,0 +1,117 @@
+<!--
+ * @Author: FeiZhouXing
+ * @Email: 2498265659@qq.com
+ * @Date: 2021-11-11 15:14:30
+ * @LastEditors: FeiZhouXing
+ * @LastEmail: 2498265659@qq.com
+ * @LastEditTime: 2021-11-17 16:14:26
+ * @Description: file content
+-->
+<!-- 旋转数组 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body style="background-color: rgb(0, 210, 255)">
+  
+</body>
+</html>
+<script>
+ 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var singleNumber = function(nums) {
+   let result = null;
+   let target = false;
+    // 先排序数组然后相邻元素比较
+    nums = nums.sort((a,b)=>b-a);
+    nums.forEach((item,index)=>{
+      if(index%2 == 0 && !target){
+        if((item + nums[++index])/2 !== item){
+          result = item;
+          target = true;
+        }
+      }
+    })
+    return result;
+};
+// console.log(containsDuplicate([30720,0]));
+// console.log(containsDuplicate([1,0,3,1]));
+// console.log(singleNumber([]));
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+ */
+ var moveZeroes = function(nums) {
+  let start = 0;
+  let end = 0;
+  let len = nums.length - 1;
+  let temp = '';
+  while(start <= len){
+    if(nums[start] == 0){
+      // 找到不为零的索引
+      while(nums[end] == 0 && end < len){
+        end++
+      }
+      if(nums[end] !== 0) {
+        // 交换位置
+        temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+      }
+    }
+    start++;
+    end = start;
+    // else{
+    //   start++;
+    //   end = start;
+    // }
+  }
+  return nums;
+};
+// console.log(moveZeroes([1,0,2,3,0,0,2,0]))
+
+
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+ function exchange(ary,start,end){
+     var temp = ary[start];
+     ary[start] = ary[end];
+     ary[end] = temp;
+ }
+var reverseString = function(s) {
+    var pre = 0;
+    var next = s.length - 1;
+    while(pre !== next && next > pre){
+        exchange(s,pre,next);
+        pre++;
+        next--;
+    }
+};
+
+// 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+  /**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function(s) {
+  var result = -1;
+  for(let i = 0; i< s.length;i++){
+    if(s.match(new RegExp(s[i],'g')).length == 1){
+      result = i
+      break;
+    }
+  }
+  return result;
+};
+</script>

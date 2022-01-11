@@ -1,0 +1,96 @@
+<!--
+ * @Author: FeiZhouXing
+ * @Email: 2498265659@qq.com
+ * @Date: 2021-08-31 15:58:11
+ * @LastEditors: FeiZhouXing
+ * @LastEmail: 2498265659@qq.com
+ * @LastEditTime: 2021-10-08 14:32:39
+ * @Description: file content
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  /**
+   * @param {string} s
+   * @return {string}
+   */
+  var longestPalindrome = function (s) {
+    // 定义最长回文子串的开始索引和偏移量
+    let index = 0;
+    let arr = 0;
+    let specilDouble = "";
+    let result = "";
+    if (s.length < 2) {
+      return s;
+    }
+    if (s.length == 2) {
+      if (s[0] === s[1]) {
+        return s;
+      }
+    }
+    // 回文子串的最大偏移量
+    let len = (s.length - 1) / 2;
+    for (let i = 1; i < s.length; i++) {
+      let flag = i < len ? i : len;
+      for (let j = 1; j <= flag; j++) {
+        let val1 = s.slice(i - j, i) + s[i] + s.slice(i + 1, i + j + 1);
+        let val2 =
+          s
+            .slice(i + 1, i + j + 1)
+            .split("")
+            .reverse()
+            .join("") +
+          s[i] +
+          s
+            .slice(i - j, i)
+            .split("")
+            .reverse()
+            .join("");
+        if (val1 === val2 && val1.length > 2) {
+          console.log("val的值", val1, val2);
+          index = j > arr ? i : index;
+          arr = j > arr ? j : arr;
+        } else if (
+          s[i] === s.slice(i - j, i) ||
+          s[i] === s.slice(i + 1, i + j + 1)
+        ) {
+          specilDouble = s[i] + s[i];
+        } else if (
+          s.slice(i - j, i + 1) ===
+          s
+            .slice(i + 1, i + j + 2)
+            .split("")
+            .reverse()
+            .join("")
+        ) {
+          
+        }
+      }
+    }
+    console.log(index, arr);
+    if (specilDouble !== "") {
+      console.log("specilDouble==1");
+      result = arr > 0 ? s.slice(index - arr, index + arr + 1) : specilDouble;
+    } else {
+      console.log("specilDouble==0");
+      result = s.slice(index - arr, index + arr + 1);
+    }
+    return result;
+  };
+  // console.log(longestPalindrome("babad"));
+  // console.log(longestPalindrome("cbdd"));
+  // console.log(longestPalindrome("cbbd"));
+  // console.log(longestPalindrome("a"));
+  // console.log(longestPalindrome("ac"));
+  // console.log(longestPalindrome("bb"));
+  console.log(longestPalindrome("ccd"));
+  console.log(longestPalindrome("ccc"));
+</script>
